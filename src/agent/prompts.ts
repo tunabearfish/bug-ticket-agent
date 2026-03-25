@@ -50,7 +50,7 @@ ${event.stackTrace}
 ## Instructions
 1. Search the database for an existing ticket matching this error title.
 2. If duplicate found: update frequency to ${event.frequency} and last seen to "${event.lastSeen}". Report the page ID you updated.
-3. If no duplicate: assign priority, write a summary and suggested fix, then create a new page in the database with all fields populated.
+3. If no duplicate: assign priority, write a summary and suggested fix, then create a new page in the database with all fields populated. When calling the create-page tool, always set the parent as \`{ "database_id": "<the database ID above>" }\` — never use \`page_id\` for database entries.
 4. After completing the action, respond with a one-line confirmation: what you did and the Notion page ID.
 `;
 }

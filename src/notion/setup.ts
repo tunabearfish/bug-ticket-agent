@@ -110,11 +110,14 @@ export async function ensureDatabase(): Promise<string> {
   // Persist to .env so subsequent runs skip creation
   const envPath = path.resolve(process.cwd(), '.env');
   if (fs.existsSync(envPath)) {
-    const current = fs.readFileSync(envPath, 'utf-8');
-    if (!current.includes('NOTION_DATABASE_ID=')) {
+    let current = fs.readFileSync(envPath, 'utf-8');
+    if (current.includes('NOTION_DATABASE_ID=')) {
+      current = current.replace(/NOTION_DATABASE_ID=.*/, `NOTION_DATABASE_ID=${databaseId}`);
+      fs.writeFileSync(envPath, current);
+    } else {
       fs.appendFileSync(envPath, `\nNOTION_DATABASE_ID=${databaseId}\n`);
-      console.log(`[Setup] Saved NOTION_DATABASE_ID to .env`);
     }
+    console.log(`[Setup] Saved NOTION_DATABASE_ID to .env`);
   }
 
   process.env.NOTION_DATABASE_ID = databaseId;

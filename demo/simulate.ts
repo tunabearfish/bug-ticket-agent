@@ -189,7 +189,7 @@ async function run() {
   const names = Object.keys(scenarios);
   for (const name of names) {
     await sendScenario(name, scenarios[name]);
-    await new Promise((r) => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 30000)); // wait for triage to finish before next scenario
   }
 
   console.log('\n✓ All demo scenarios sent. Check your Notion database!\n');
